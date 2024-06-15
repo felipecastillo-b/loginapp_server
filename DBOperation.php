@@ -75,21 +75,22 @@ class DBOperation
     // Funcion que nos permite obtener los registros que debemos obtener del servidor
     public function getRegister()
     {
+        // Prepara una consulta SQL donde obtendra las columnas idregistro, idestado_registro, idtipo_registro, registro y fecha de la tabla registro
         $stmt = $this->con->prepare("SELECT idregistro, idestado_registro, idtipo_registro, registro, fecha FROM registro");
-        $stmt->execute();
-        $stmt->bind_result($idregistro, $idestado_registro, $idtipo_registro, $registro, $fecha);
-        $registros = array();
+        $stmt->execute(); // ejecuta la consulta
+        $stmt->bind_result($idregistro, $idestado_registro, $idtipo_registro, $registro, $fecha); // vincula las variables con los resultados de la consulta
+        $registros = array(); // inicializa un arreglo vacio
 
-        while ($stmt->fetch()) {
+        while ($stmt->fetch()) { // asigna los valores de las variables vinculadas al arreglo $temp
             $temp = array();
             $temp['idregistro'] = $idregistro;
             $temp['idestado_registro'] = $idestado_registro;
             $temp['idtipo_registro'] = $idtipo_registro;
             $temp['registro'] = $registro;
             $temp['fecha'] = $fecha;
-            array_push($registros, $temp);
+            array_push($registros, $temp); // añade el arreglo temporal $temp al arreglo $registros
         }
-        return $registros;
+        return $registros; // retorna el arreglo $registros
     }
 }
 ?>
