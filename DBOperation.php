@@ -76,18 +76,21 @@ class DBOperation
     public function getRegister()
     {
         // Prepara una consulta SQL donde obtendra las columnas idregistro, idestado_registro, idtipo_registro, registro y fecha de la tabla registro
-        $stmt = $this->con->prepare("SELECT idregistro, idestado_registro, idtipo_registro, registro, fecha FROM registro");
+        $stmt = $this->con->prepare("SELECT id, idCaja, sensor1, sensor2, sensor3, sensor4, sensor5, fechaHora FROM registro ORDER BY id DESC");
         $stmt->execute(); // ejecuta la consulta
-        $stmt->bind_result($idregistro, $idestado_registro, $idtipo_registro, $registro, $fecha); // vincula las variables con los resultados de la consulta
+        $stmt->bind_result($id, $idCaja, $sensor1, $sensor2, $sensor3, $sensor4, $sensor5, $fechaHora); // vincula las variables con los resultados de la consulta
         $registros = array(); // inicializa un arreglo vacio
 
         while ($stmt->fetch()) { // asigna los valores de las variables vinculadas al arreglo $temp
             $temp = array();
-            $temp['idregistro'] = $idregistro;
-            $temp['idestado_registro'] = $idestado_registro;
-            $temp['idtipo_registro'] = $idtipo_registro;
-            $temp['registro'] = $registro;
-            $temp['fecha'] = $fecha;
+            $temp['id'] = $id;
+            $temp['idCaja'] = $idCaja;
+            $temp['sensor1'] = $sensor1;
+            $temp['sensor2'] = $sensor2;
+            $temp['sensor3'] = $sensor3;
+            $temp['sensor4'] = $sensor4;
+            $temp['sensor5'] = $sensor5;
+            $temp['fecha'] = $fechaHora;
             array_push($registros, $temp); // añade el arreglo temporal $temp al arreglo $registros
         }
         return $registros; // retorna el arreglo $registros
