@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-05-2024 a las 03:47:59
+-- Tiempo de generación: 31-07-2024 a las 01:35:04
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -47,12 +47,32 @@ INSERT INTO `estado` (`idestado`, `estado`) VALUES
 --
 
 CREATE TABLE `registro` (
-  `idregistro` int(11) NOT NULL,
-  `idestado_registro` int(11) NOT NULL,
-  `idtipo_registro` int(11) NOT NULL,
-  `registro` varchar(500) NOT NULL,
-  `fecha` datetime NOT NULL
+  `id` int(11) NOT NULL,
+  `idCaja` int(11) NOT NULL,
+  `sensor1` int(11) NOT NULL,
+  `sensor2` int(11) NOT NULL,
+  `sensor3` int(11) NOT NULL,
+  `sensor4` int(11) NOT NULL,
+  `sensor5` int(11) NOT NULL,
+  `fechaHora` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Volcado de datos para la tabla `registro`
+--
+
+INSERT INTO `registro` (`id`, `idCaja`, `sensor1`, `sensor2`, `sensor3`, `sensor4`, `sensor5`, `fechaHora`) VALUES
+(1, 1, 10, 10, 10, 10, 10, '2024-07-03 02:41:18'),
+(2, 1, 10, 10, 10, 10, 10, '2024-07-03 02:41:18'),
+(3, 2, 100, 100, 100, 100, 100, '2024-07-03 02:59:12'),
+(4, 1, 100, 100, 100, 100, 400, '2024-07-03 03:01:19'),
+(5, 2, 1, 1, 1, 1, 400, '2024-07-03 03:13:46'),
+(6, 2, 1, 1, 1, 1, 600, '2024-07-03 03:14:11'),
+(7, 2, 100, 100, 100, 100, 400, '2024-07-04 01:08:29'),
+(8, 2, 1, 1, 1, 1, 1, '2024-07-04 01:21:20'),
+(9, 2, 155, 155, 155, 155, 155, '2024-07-10 01:23:55'),
+(10, 2, 100, 500, 100, 100, 100, '2024-07-24 01:52:28'),
+(11, 1, 100, 1, 1, 1, 1, '2024-07-24 02:01:24');
 
 -- --------------------------------------------------------
 
@@ -110,9 +130,7 @@ ALTER TABLE `estado`
 -- Indices de la tabla `registro`
 --
 ALTER TABLE `registro`
-  ADD PRIMARY KEY (`idregistro`),
-  ADD KEY `fk_registro_estado1_idx` (`idestado_registro`),
-  ADD KEY `fk_registro_tipo1_idx` (`idtipo_registro`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `tipo`
@@ -142,7 +160,7 @@ ALTER TABLE `estado`
 -- AUTO_INCREMENT de la tabla `registro`
 --
 ALTER TABLE `registro`
-  MODIFY `idregistro` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `tipo`
@@ -159,13 +177,6 @@ ALTER TABLE `usuario`
 --
 -- Restricciones para tablas volcadas
 --
-
---
--- Filtros para la tabla `registro`
---
-ALTER TABLE `registro`
-  ADD CONSTRAINT `fk_registro_estado1` FOREIGN KEY (`idestado_registro`) REFERENCES `estado` (`idestado`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_registro_tipo1` FOREIGN KEY (`idtipo_registro`) REFERENCES `tipo` (`idtipo`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `usuario`
